@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">  
+    <script src="script.js" defer></script>
+    <title>Recipe App</title>
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h2 class="logo">Recipes4U</h2>
+                <div class="search-wrapper">
+                    <form class="search-bar">
+                        <input type="text" placeholder="Search your favorite meal" class="search">
+                        <button type="submit" id="search-btn" class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+        </header>
+        <div class="fav-meals">
+            <h2 class="title">Favourite Recipes</h2>
+            <div class="list-wrapper">
+                <div class="left-paddle">
+                    <i class="fa-solid fa-circle-chevron-left"></i>
+                </div>
+                <div class="right-paddle">
+                    <i class="fa-solid fa-circle-chevron-right"></i>
+                </div>
+                <ul class="fav-meals-list">    
+                </ul>
+            </div>
+        </div>    
+        <div class="meals"></div>
+    </div>
+</body>
+</html>
