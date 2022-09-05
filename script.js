@@ -187,9 +187,9 @@ async function renderFavMeals() {
 
     const favMeals = LSGetMeals();
 
-    if(favMeals.length){
+    if (favMeals.length === 0) {
 
-        favMealsEl.innerHTML = '';
+       renderDefault();
     }
    
     for(let i = 0; i < favMeals.length; i++){
@@ -197,6 +197,21 @@ async function renderFavMeals() {
         const meal = await getMealById(favMeals[i]);
         renderNewFavMeal(meal);
     }
+}
+
+function renderDefault() {
+
+    const defaultEl = document.createElement('li');
+    defaultEl.classList.add('default');
+    defaultEl.innerHTML = `
+    <div class="frame">
+        <i class="fa-solid fa-plus"></i>
+    </div>
+    <p class="default-desc">Add your favourite meals here</p>`;
+
+    defaultEl.addEventListener('click', () => searchFieldEl.focus());
+
+    favMealsEl.appendChild(defaultEl);
 }
 
 function renderNewFavMeal(meal) {
@@ -208,6 +223,11 @@ function renderNewFavMeal(meal) {
     <button class="rem-btn"><i class="fa-solid fa-xmark"></i></button>
     <img class="fav-meal-img" src="${meal.strMealThumb}">
     <p class="fav-meal-desc elipsis">${meal.strMeal}</p>`;
+
+    if(LSGetMeals().length === 0) {
+
+        favMealsEl.innerHTML = '';
+    }
 
     favMealsEl.appendChild(favMealEl);
 
@@ -237,6 +257,11 @@ function removeFavMeal(meal) {
 
     removeMealLS(meal.idMeal)
     const favMealEl = document.getElementById(meal.idMeal);
+
+    if(LSGetMeals().length === 0) {
+
+        renderDefault();
+    }
 
     if(scrollAmount * (favMealsEl.querySelectorAll('.fav-meal').length / 3) <= -currentScrollPos) {
         if(favMealsEl.children.length % 3 === 1) {
