@@ -1,6 +1,6 @@
 const appEl = document.querySelector('.app');
 const searchFieldEl = document.querySelector('.search');
-const searchButton = document.getElementById('search-btn');
+const searchButtonEl = document.getElementById('search-btn');
 const mealsEl = document.querySelector('.meals');
 const favMealsEl = document.querySelector('.fav-meals-list');
 const listWrapperEl = document.querySelector('.list-wrapper');
@@ -11,12 +11,12 @@ const rightPaddleEl = document.querySelector('.right-paddle');
 getRandomMeal();
 renderFavMeals();
 
-searchButton.addEventListener('click', (e) => {
+searchButtonEl.addEventListener('click', (e) => {
     
     e.preventDefault(); 
     if (searchFieldEl.value) {
         appEl.scrollTop = 0;
-        getMealsBySearch(searchFieldEl.value);
+        renderSearchResults(searchFieldEl.value);
         searchFieldEl.value = '';
     }
 });
@@ -83,20 +83,7 @@ async function getMealsBySearch(term) {
     
     const mealArr = data.meals;
 
-    mealsEl.innerHTML = '';
-    
-    if(mealArr === null || mealArr.length === 0){
-
-        const warningEl = document.createElement('div');
-        warningEl.classList.add('warning');
-        warningEl.innerHTML = '<h2>No results were found ...</h2>';
-        mealsEl.appendChild(warningEl);
-        return;
-    }
-
-    for (let i = 0; i < mealArr.length; i++) {
-        renderMeal(mealArr[i]);
-    }
+    return mealArr;
 }
 
 async function getRandomMeal() {
@@ -181,6 +168,25 @@ function renderMeal(meal, random = false) {
     })
     
     mealsEl.appendChild(mealEl);
+}
+
+async function renderSearchResults(term) {
+
+    const mealArr = await getMealsBySearch(term);
+    mealsEl.innerHTML = '';
+    
+    if(mealArr === null || mealArr.length === 0){
+
+        const warningEl = document.createElement('div');
+        warningEl.classList.add('warning');
+        warningEl.innerHTML = '<h2>No results were found ...</h2>';
+        mealsEl.appendChild(warningEl);
+        return;
+    }
+
+    for (let i = 0; i < mealArr.length; i++) {
+        renderMeal(mealArr[i]);
+    }
 }
 
 async function renderFavMeals() {
